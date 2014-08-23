@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../resources/template/master.xhtml">
+	
+	<ui:define name="content">
+	
+		<h:form id="frm_detalle">
+			<div class="frm_title">Gestion de Usuarios</div>
+			
+			<p:commandButton value="Nuevo Usuario"
+							 actionListener="#{rolBean.nuevo()}"
+							 update=":frm_am"
+							 oncomplete="PF('w_dlg_am').show()"
+							 icon="nuevo" />
+			
+		 	<p:growl id="sms" autoUpdate="true" life="5000"/>
+		</h:form>
+		
+		<div class="spacer" />
+		
+		<h:form id="frm_table">
+			<p:dataTable id="table_datas"
+						 var="row" value="#{rolBean.roles}"
+						 paginator="true"
+						 rows="10"
+						 rowsPerPageTemplate="10,20,30"
+						 emptyMessage="No exiten registro de Roles"
+						 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+
+				<f:facet name="header">
+			        Lista de Roles
+			    </f:facet>
+			    
+			    <p:column style="width: 70px; text-align: center" headerText="Acciones">
+					<p:menuButton value="" styleClass="menu_option">
+						
+						<p:menuitem value="Editar"
+									actionListener="#{rolBean.editar(row.rolId)}"
+									update=":frm_am"
+									oncomplete="PF('w_dlg_am').show()"
+									icon="editar" />
+						
+						<p:menuitem value="Eliminar"
+									actionListener="#{rolBean.eliminar(row.rolId)}"
+									update=":frm_table"
+									onclick="return confirm('¿Esta seguro que desea eliminar este registro?');"
+									icon="eliminar" />
+					</p:menuButton>
+				</p:column>
+			    
+				<p:column headerText="Nombre" filterBy="#{row.nombre}" sortBy="#{row.nombre}">
+					<h:outputText value="" />
+				</p:column>
+				
+				<p:column headerText="Descripcion">
+					<h:outputText value="" />
+				</p:column>
+				
+				<f:facet name="footer">
+			       En total hay #{rolBean.roles.size()} roles.
+			   </f:facet>
+			
+			</p:dataTable>
+		</h:form>
+		
+		<h:form id="frm_am">
+			<p:dialog id="dlg_am"
+					  widgetVar="w_dlg_am"
+					  header="#{rolBean.nombrePanel}"
+					  resizable="false"
+					  modal="true"
+					  appendTo="@(body)"
+					  showEffect="fade"
+					  hideEffect="explode">
+					  
+				<h:panelGrid columns="2" cellspacing="5">
+				
+					<h:outputLabel value="Id Rol: " styleClass="label" rendered="#{rolBean.edit}" />
+					<p:inputText value="#{rolBean.rolId}" size="35" rendered="#{rolBean.edit}" disabled="#{rolBean.edit}"/>
+					
+					<h:outputLabel value="Nombre: " styleClass="label"/>
+					<p:inputText value="#{rolBean.rol.nombre}" size="35"/>
+					
+					<h:outputLabel value="Descripcion: " styleClass="label"/>
+					<p:inputText value="#{rolBean.rol.descripcion}" size="40"/>
+					
+					<p:commandButton value="Guardar"
+									 update=":frm_table"
+									 actionListener="#{rolBean.guardar()}"
+									 icon="guardar"/>
+				
+					<p:commandButton value="Cancelar"
+									 oncomplete="PF('w_dlg_am').hide()"
+									 icon="cancelar" />
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+	    
+	</ui:define>
+
+</ui:composition>
+
+</html>

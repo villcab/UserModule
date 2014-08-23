@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../resources/template/master.xhtml">
+	
+	<ui:define name="content">
+	
+		<h:form>
+			<div class="frm_title">Gestion de Perfiles</div>
+			<p:growl id="sms" autoUpdate="true" life="5000"/>
+			<p:commandButton value="Nuevo Perfil"
+							 actionListener="#{perfilBean.nuevo}"
+							 update=":frm_edit"
+							 oncomplete="PF('w_dlg_edit').show()"
+							 icon="nuevo" />
+		</h:form>
+		
+		<div class="spacer" />
+		
+		<h:form id="frm_table">
+			<p:dataTable id="table_datos"
+						 var="row" value="#{perfilBean.listPerfiles}"
+						 paginator="true"
+						 rows="10"
+						 rowsPerPageTemplate="10, 20, 30"
+						 emptyMessage="No existen registros"
+						 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}">
+
+				<f:facet name="header">
+			        Lista de Perfiles
+			    </f:facet>
+			    
+			    <p:column style="width: 70px; text-align: center" headerText="Acciones">
+					<p:menuButton value="" styleClass="menu_option">
+						<p:menuitem value="Editar"
+									actionListener="#{perfilBean.editar}"
+									update=":frm_edit"
+									oncomplete="PF('w_dlg_edit').show()"
+									icon="editar">
+							<f:param name="perfilId" value="#{row.perfilId}"/>
+						</p:menuitem>
+						
+						<p:menuitem value="Eliminar"
+									actionListener="#{perfilBean.eliminar}"
+									update=":frm_table"
+									icon="eliminar">
+							<f:param name="perfilId" value="#{row.perfilId}"/>
+						</p:menuitem>
+					</p:menuButton>
+				</p:column>
+			    
+				<p:column headerText="Nombre" filterBy="#{row.nombre}" sortBy="#{row.nombre}">
+					<h:outputText value="#{row.nombre}" />
+				</p:column>
+				
+				<p:column headerText="Descripcion">
+					<h:outputText value="#{row.descripcion}" />
+				</p:column>
+				
+				<f:facet name="footer">
+			       En total hay #{perfilBean.listPerfiles.size()} perfiles.
+			   </f:facet>
+			
+			</p:dataTable>
+		</h:form>
+		
+		<p:dialog id="dlg_edit"
+				  widgetVar="w_dlg_edit"
+				  header="Gestion de Perfiles"
+				  resizable="false"
+				  modal="true"
+				  appendTo="@(body)"
+				  showEffect="fade"
+				  hideEffect="size">
+				  
+			<h:form id="frm_edit">
+				<h:panelGrid columns="2" cellspacing="5">
+					<h:outputLabel value="Perfil Id: " styleClass="label" rendered="#{perfilBean.edit}" />
+					<p:inputText value="#{perfilBean.perfil.perfilId}" size="35" rendered="#{perfilBean.edit}" disabled="#{perfilBean.edit}"/>
+					
+					<h:outputLabel value="Nombre: " styleClass="label"/>
+					<p:inputText value="#{perfilBean.perfil.nombre}"
+								 size="30"
+								 maxlength="50"
+								 validator="#{perfilBean.validarNombre}"
+								 requiredMessage="El nombre es requerido"
+								 required="true"/>
+					
+					<h:outputLabel value="Descripcion: " styleClass="label"/>
+					<p:inputText value="#{perfilBean.perfil.descripcion}" size="40"/>
+				</h:panelGrid>
+				
+				<div class="spacer"/>
+				
+				<h:panelGrid columns="2" cellspacing="2">
+					<p:commandButton value="Guardar"
+									 update=":frm_table frm_edit"
+									 actionListener="#{perfilBean.guardar}"
+									 icon="guardar"
+									 onstart="PF('w_progress').show()"
+									 onsuccess="PF('w_progress').hide()"/>
+					<p:commandButton value="Cancelar"
+									 onclick="PF('w_dlg_edit').hide()"
+									 icon="cancelar"
+									 type="button"/>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	    
+	</ui:define>
+
+</ui:composition>
+
+</html>
