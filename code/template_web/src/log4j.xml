@@ -10,7 +10,7 @@
 	</appender>
 
 	<appender name="F" class="org.apache.log4j.RollingFileAppender">
-		<param name="file" value="${jboss.server.log.dir}/template_web.log" />
+		<param name="file" value="${jboss.server.log.dir}/UserModule.log" />
 		<param name="Append" value="true" />
 		<param name="MaxFileSize" value="1000MB" />
 		<param name="MaxBackupIndex" value="10" />

@@ -33,18 +33,24 @@
 			        			required="true"
 			        			size="35"
 			        			style="height: 25px; font-size: 14px">
-			            <f:validateLength minimum="2" />
 			        </p:password>
 			        <p:watermark value="Contraseña" for="password" />
 			
 			    </h:panelGrid>
 			    <p:commandButton value="Ingresar"
-			    				 actionListener="#{loginBean.validar}"
+			    				 actionListener="#{loginBean.acceder()}"
 			    				 update="frm_login"
 			    				 icon="login"
+			    				 oncomplete="handleLoginRequest(args)"
 			    				 style="width: 110px; height: 35px;"/>
 			</center>
 		</h:form>
+		
+		<script type="text/javascript">
+			function handleLoginRequest(args) {
+				window.location = args.home;
+			}
+		</script>
 		
 	</ui:define>
 

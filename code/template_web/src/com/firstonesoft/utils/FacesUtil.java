@@ -7,6 +7,11 @@ import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
 
+/**
+ * 
+ * @author Bismarck Villca Soliz
+ *
+ */
 public class FacesUtil {
 
     public static Object getSessionAttribute(String attribute) {
@@ -31,24 +36,24 @@ public class FacesUtil {
         session.removeAttribute(attribute);
     }
     
-    public static int SEVERITY_ERROR = 1;
-    public static int SEVERITY_FATAL = 2;
-    public static int SEVERITY_INFO = 3;
-    public static int SEVERITY_WARN = 4;
-    public static void showFacesMessage(String texto, int tipo) {
+    public static int ERROR = 1;
+    public static int FATAL = 2;
+    public static int INFO = 3;
+    public static int WARN = 4;
+    public static void showMessage(String texto, int tipo) {
         switch (tipo) {
-            case 1:
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, texto, "ERROR"));
-                break;
-            case 2:
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, texto, "ERROR FATAL"));
-                break;
-            case 3:
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, texto, "INFORMACION"));
-                break;
-            case 4:
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, texto, "ADVERTENCIA"));
-                break;
+        case 1:
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, texto, "ERROR"));
+            break;
+        case 2:
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, texto, "ERROR FATAL"));
+            break;
+        case 3:
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, texto, "INFORMACION"));
+            break;
+        case 4:
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, texto, "ADVERTENCIA"));
+            break;
         }
     }
     
@@ -64,12 +69,12 @@ public class FacesUtil {
     
     public static void openDialog(String widgetVarDialog) {
     	String ejecutar = String.format("PF('%s').show()", widgetVarDialog);
-		RequestContext.getCurrentInstance().execute(ejecutar);
+	RequestContext.getCurrentInstance().execute(ejecutar);
     }
     
     public static void cerrarDialog(String widgetVarDialog) {
     	String ejecutar = String.format("PF('%s').hide()", widgetVarDialog);
-		RequestContext.getCurrentInstance().execute(ejecutar);
+	RequestContext.getCurrentInstance().execute(ejecutar);
     }
     
 }
