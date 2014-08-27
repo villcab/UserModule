@@ -3,12 +3,14 @@ package com.firstonesoft.mu.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.firstonesoft.utils.Entity;
+
 /**
  * 
  * @author Bismarck Villca Soliz
  *
  */
-public class Acceso implements Serializable {
+public class Acceso extends Entity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

@@ -3,12 +3,14 @@ package com.firstonesoft.mu.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.firstonesoft.utils.Entity;
+
 /**
  * 
  * @author Bismarck Villca Soliz
  *
  */
-public class Bitacora implements Serializable {
+public class Bitacora extends Entity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

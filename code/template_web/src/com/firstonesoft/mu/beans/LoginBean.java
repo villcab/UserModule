@@ -19,45 +19,44 @@ import com.firstonesoft.utils.FacesUtil;
 @ManagedBean
 public class LoginBean implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    private static final Logger log = Logger.getLogger(LoginBean.class); 
+	private static final long serialVersionUID = 1L;
+	private static final Logger log = Logger.getLogger(LoginBean.class);
 
-    private String username;
-    private String password;
+	private String username;
+	private String password;
 
-    @PostConstruct
-    private void init() {
-	try {
-	    
-	    
-	} catch (Exception e) {
-	    log.error("Error al cargar la vista", e);
+	@PostConstruct
+	private void init() {
+		try {
+
+		} catch (Exception e) {
+			log.error("Error al cargar la vista", e);
+		}
 	}
-    }
 
-    public void acceder() {
-	log.info("Validando usuario");
-	
-	FacesUtil.setParametro("home", "/UserModule/view/index.jsf");
-    }
+	public void acceder() {
+		log.info("Validando usuario");
 
-    /**
-     * GETTER AND SETTER
-     */
-    public String getUsername() {
-	return username;
-    }
+		FacesUtil.setParameter("home", "/UserModule/view/index.jsf");
+	}
 
-    public void setUsername(String username) {
-	this.username = username;
-    }
+	/**
+	 * GETTER AND SETTER
+	 */
+	public String getUsername() {
+		return username;
+	}
 
-    public String getPassword() {
-	return password;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setPassword(String password) {
-	this.password = password;
-    }
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 }
