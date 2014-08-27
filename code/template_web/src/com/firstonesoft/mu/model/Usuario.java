@@ -1,49 +1,31 @@
 package com.firstonesoft.mu.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
-
 /**
- * The persistent class for the usuario database table.
  * 
+ * @author Bismarck Villca Soliz
+ *
  */
-@Entity
-@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
 public class Usuario implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name="USUARIO_USUARIOID_GENERATOR", sequenceName="USUARIO_USUARIO_ID_SEQ")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USUARIO_USUARIOID_GENERATOR")
-	@Column(name="usuario_id")
 	private Long usuarioId;
-
 	private String ci;
-
 	private String email;
-
 	private Boolean estado;
-
 	private String nombres;
-
 	private String password;
-
 	private String telefono;
-
 	private String username;
+	private Integer perfilId;
 
-	//bi-directional many-to-one association to Perfil
-	@ManyToOne
-	@JoinColumn(name="perfil_id")
-	private Perfil perfil;
-
-	//bi-directional many-to-one association to UsuarioAcceso
-	@OneToMany(mappedBy="usuario")
 	private List<UsuarioAcceso> usuarioAccesos;
 
 	public Usuario() {
+		estado = true;
 	}
 
 	public Long getUsuarioId() {
@@ -110,12 +92,12 @@ public class Usuario implements Serializable {
 		this.username = username;
 	}
 
-	public Perfil getPerfil() {
-		return this.perfil;
+	public Integer getPerfilId() {
+		return perfilId;
 	}
 
-	public void setPerfil(Perfil perfil) {
-		this.perfil = perfil;
+	public void setPerfilId(Integer perfilId) {
+		this.perfilId = perfilId;
 	}
 
 	public List<UsuarioAcceso> getUsuarioAccesos() {
@@ -124,20 +106,6 @@ public class Usuario implements Serializable {
 
 	public void setUsuarioAccesos(List<UsuarioAcceso> usuarioAccesos) {
 		this.usuarioAccesos = usuarioAccesos;
-	}
-
-	public UsuarioAcceso addUsuarioAcceso(UsuarioAcceso usuarioAcceso) {
-		getUsuarioAccesos().add(usuarioAcceso);
-		usuarioAcceso.setUsuario(this);
-
-		return usuarioAcceso;
-	}
-
-	public UsuarioAcceso removeUsuarioAcceso(UsuarioAcceso usuarioAcceso) {
-		getUsuarioAccesos().remove(usuarioAcceso);
-		usuarioAcceso.setUsuario(null);
-
-		return usuarioAcceso;
 	}
 
 }

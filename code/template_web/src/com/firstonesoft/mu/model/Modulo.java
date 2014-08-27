@@ -1,29 +1,21 @@
 package com.firstonesoft.mu.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
-
 /**
- * The persistent class for the modulo database table.
  * 
+ * @author Bismarck Villca Soliz
+ *
  */
-@Entity
-@NamedQuery(name="Modulo.findAll", query="SELECT m FROM Modulo m")
 public class Modulo implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name="modulo_id")
 	private Integer moduloId;
-
 	private String nombre;
-
 	private Integer secuencia;
 
-	//bi-directional many-to-one association to Acceso
-	@OneToMany(mappedBy="modulo")
 	private List<Acceso> accesos;
 
 	public Modulo() {
@@ -59,20 +51,6 @@ public class Modulo implements Serializable {
 
 	public void setAccesos(List<Acceso> accesos) {
 		this.accesos = accesos;
-	}
-
-	public Acceso addAcceso(Acceso acceso) {
-		getAccesos().add(acceso);
-		acceso.setModulo(this);
-
-		return acceso;
-	}
-
-	public Acceso removeAcceso(Acceso acceso) {
-		getAccesos().remove(acceso);
-		acceso.setModulo(null);
-
-		return acceso;
 	}
 
 }

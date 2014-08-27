@@ -1,30 +1,21 @@
 package com.firstonesoft.mu.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
 
-
 /**
- * The persistent class for the bitacora database table.
  * 
+ * @author Bismarck Villca Soliz
+ *
  */
-@Entity
-@NamedQuery(name="Bitacora.findAll", query="SELECT b FROM Bitacora b")
 public class Bitacora implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date fecha;
-
 	private String accion;
-
-	@Column(name="direccion_ip")
 	private String direccionIp;
-
 	private String formulario;
-
 	private String usuario;
 
 	public Bitacora() {

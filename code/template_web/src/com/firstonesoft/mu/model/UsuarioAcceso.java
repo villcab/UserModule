@@ -1,34 +1,19 @@
 package com.firstonesoft.mu.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
 
 /**
- * The persistent class for the usuario_acceso database table.
  * 
+ * @author Bismarck Villca Soliz
+ *
  */
-@Entity
-@Table(name="usuario_acceso")
-@NamedQuery(name="UsuarioAcceso.findAll", query="SELECT u FROM UsuarioAcceso u")
 public class UsuarioAcceso implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name="USUARIO_ACCESO_USUARIOACCESOID_GENERATOR", sequenceName="USUARIO_ACCESO_USUARIO_ACCESO_ID_SEQ")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USUARIO_ACCESO_USUARIOACCESOID_GENERATOR")
-	@Column(name="usuario_acceso_id")
 	private Long usuarioAccesoId;
-
-	//bi-directional many-to-one association to Acceso
-	@ManyToOne
-	@JoinColumn(name="acceso_id")
-	private Acceso acceso;
-
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="usuario_id")
-	private Usuario usuario;
+	private Integer accesoId;
+	private Long usuarioId;
 
 	public UsuarioAcceso() {
 	}
@@ -41,20 +26,20 @@ public class UsuarioAcceso implements Serializable {
 		this.usuarioAccesoId = usuarioAccesoId;
 	}
 
-	public Acceso getAcceso() {
-		return this.acceso;
+	public Integer getAccesoId() {
+		return accesoId;
 	}
 
-	public void setAcceso(Acceso acceso) {
-		this.acceso = acceso;
+	public void setAccesoId(Integer accesoId) {
+		this.accesoId = accesoId;
 	}
 
-	public Usuario getUsuario() {
-		return this.usuario;
+	public Long getUsuarioId() {
+		return usuarioId;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUsuarioId(Long usuarioId) {
+		this.usuarioId = usuarioId;
 	}
 
 }

@@ -1,120 +1,75 @@
 package com.firstonesoft.mu.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
 /**
- * The persistent class for the perfil database table.
  * 
+ * @author Bismarck Villca Soliz
+ *
  */
-@Entity
-@NamedQuery(name = "Perfil.findAll", query = "SELECT p FROM Perfil p")
 public class Perfil implements Serializable {
-    private static final long serialVersionUID = 1L;
 
-    @Id
-    @SequenceGenerator(name = "PERFIL_PERFILID_GENERATOR", sequenceName = "PERFIL_PERFIL_ID_SEQ", allocationSize = 0)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PERFIL_PERFILID_GENERATOR")
-    @Column(name = "perfil_id")
-    private Long perfilId;
+	private static final long serialVersionUID = 1L;
 
-    private String descripcion;
+	private Long perfilId;
+	private String descripcion;
+	private Boolean estado;
+	private String nombre;
 
-    private Boolean estado;
+	private List<PerfilAcceso> perfilAccesos;
+	private List<Usuario> usuarios;
 
-    private String nombre;
+	public Perfil() {
+		estado = true;
+	}
 
-    // bi-directional many-to-one association to PerfilAcceso
-    @OneToMany(mappedBy = "perfil")
-    private List<PerfilAcceso> perfilAccesos;
+	public Long getPerfilId() {
+		return this.perfilId;
+	}
 
-    // bi-directional many-to-one association to Usuario
-    @OneToMany(mappedBy = "perfil")
-    private List<Usuario> usuarios;
+	public void setPerfilId(Long perfilId) {
+		this.perfilId = perfilId;
+	}
 
-    public Perfil() {
-    }
+	public String getDescripcion() {
+		return this.descripcion;
+	}
 
-    public Long getPerfilId() {
-	return this.perfilId;
-    }
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
-    public void setPerfilId(Long perfilId) {
-	this.perfilId = perfilId;
-    }
+	public Boolean getEstado() {
+		return this.estado;
+	}
 
-    public String getDescripcion() {
-	return this.descripcion;
-    }
+	public void setEstado(Boolean estado) {
+		this.estado = estado;
+	}
 
-    public void setDescripcion(String descripcion) {
-	this.descripcion = descripcion;
-    }
+	public String getNombre() {
+		return this.nombre;
+	}
 
-    public Boolean getEstado() {
-	return this.estado;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public void setEstado(Boolean estado) {
-	this.estado = estado;
-    }
+	public List<PerfilAcceso> getPerfilAccesos() {
+		return this.perfilAccesos;
+	}
 
-    public String getNombre() {
-	return this.nombre;
-    }
+	public void setPerfilAccesos(List<PerfilAcceso> perfilAccesos) {
+		this.perfilAccesos = perfilAccesos;
+	}
 
-    public void setNombre(String nombre) {
-	this.nombre = nombre;
-    }
+	public List<Usuario> getUsuarios() {
+		return this.usuarios;
+	}
 
-    public List<PerfilAcceso> getPerfilAccesos() {
-	return this.perfilAccesos;
-    }
-
-    public void setPerfilAccesos(List<PerfilAcceso> perfilAccesos) {
-	this.perfilAccesos = perfilAccesos;
-    }
-
-    public PerfilAcceso addPerfilAcceso(PerfilAcceso perfilAcceso) {
-	getPerfilAccesos().add(perfilAcceso);
-	perfilAcceso.setPerfil(this);
-
-	return perfilAcceso;
-    }
-
-    public PerfilAcceso removePerfilAcceso(PerfilAcceso perfilAcceso) {
-	getPerfilAccesos().remove(perfilAcceso);
-	perfilAcceso.setPerfil(null);
-
-	return perfilAcceso;
-    }
-
-    public List<Usuario> getUsuarios() {
-	return this.usuarios;
-    }
-
-    public void setUsuarios(List<Usuario> usuarios) {
-	this.usuarios = usuarios;
-    }
-
-    public Usuario addUsuario(Usuario usuario) {
-	getUsuarios().add(usuario);
-	usuario.setPerfil(this);
-
-	return usuario;
-    }
-
-    public Usuario removeUsuario(Usuario usuario) {
-	getUsuarios().remove(usuario);
-	usuario.setPerfil(null);
-
-	return usuario;
-    }
-
-    @Override
-    public String toString() {
-	return "Perfil [perfilId=" + perfilId + ", descripcion=" + descripcion + ", estado=" + estado + ", nombre=" + nombre + "]";
-    }
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
 
 }

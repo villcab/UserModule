@@ -1,34 +1,19 @@
 package com.firstonesoft.mu.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
 
 /**
- * The persistent class for the perfil_acceso database table.
  * 
+ * @author Bismarck Villca Soliz
+ *
  */
-@Entity
-@Table(name="perfil_acceso")
-@NamedQuery(name="PerfilAcceso.findAll", query="SELECT p FROM PerfilAcceso p")
 public class PerfilAcceso implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name="PERFIL_ACCESO_PERFILACCESOID_GENERATOR", sequenceName="PERFIL_ACCESO_PERFIL_ACCESO_ID_SEQ")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PERFIL_ACCESO_PERFILACCESOID_GENERATOR")
-	@Column(name="perfil_acceso_id")
 	private Long perfilAccesoId;
-
-	//bi-directional many-to-one association to Acceso
-	@ManyToOne
-	@JoinColumn(name="acceso_id")
-	private Acceso acceso;
-
-	//bi-directional many-to-one association to Perfil
-	@ManyToOne
-	@JoinColumn(name="perfil_id")
-	private Perfil perfil;
+	private Long accesoId;
+	private Integer perfilId;
 
 	public PerfilAcceso() {
 	}
@@ -41,20 +26,20 @@ public class PerfilAcceso implements Serializable {
 		this.perfilAccesoId = perfilAccesoId;
 	}
 
-	public Acceso getAcceso() {
-		return this.acceso;
+	public Long getAccesoId() {
+		return accesoId;
 	}
 
-	public void setAcceso(Acceso acceso) {
-		this.acceso = acceso;
+	public void setAccesoId(Long accesoId) {
+		this.accesoId = accesoId;
 	}
 
-	public Perfil getPerfil() {
-		return this.perfil;
+	public Integer getPerfilId() {
+		return perfilId;
 	}
 
-	public void setPerfil(Perfil perfil) {
-		this.perfil = perfil;
+	public void setPerfilId(Integer perfilId) {
+		this.perfilId = perfilId;
 	}
 
 }
